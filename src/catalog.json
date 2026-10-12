@@ -1,0 +1,106 @@
+[
+  {
+    "id": "spider-man-bnd",
+    "name": "Spider-Man BND",
+    "category": "comic",
+    "price": "$120",
+    "details": "Optional display stand +$15",
+    "image": null
+  },
+  {
+    "id": "deadpool",
+    "name": "Deadpool",
+    "category": "comic",
+    "price": "$140",
+    "details": "Made to order",
+    "image": null
+  },
+  {
+    "id": "wolverine",
+    "name": "Wolverine",
+    "category": "comic",
+    "price": "Ask for quote",
+    "details": "Made to order",
+    "image": null
+  },
+  {
+    "id": "batman",
+    "name": "Batman",
+    "category": "comic",
+    "price": "$130",
+    "details": "Made to order",
+    "image": null
+  },
+  {
+    "id": "daredevil-2003",
+    "name": "Daredevil (2003)",
+    "category": "comic",
+    "price": "$120",
+    "details": "Clubs $40 · bundle $150",
+    "image": null
+  },
+  {
+    "id": "peacekeeper-s1",
+    "name": "Peacekeeper S1",
+    "category": "other",
+    "price": "$100",
+    "details": "Made to order",
+    "image": null
+  },
+  {
+    "id": "red-x",
+    "name": "Red X",
+    "category": "comic",
+    "price": "$140",
+    "details": "Made to order",
+    "image": null
+  },
+  {
+    "id": "predator",
+    "name": "Predator",
+    "category": "other",
+    "price": "$260",
+    "details": "Dreadlocks included · about 10-day production",
+    "image": null
+  },
+  {
+    "id": "doctor-doom",
+    "name": "Doctor Doom",
+    "category": "comic",
+    "price": "$100 / $130",
+    "details": "Price depends on LED option",
+    "image": null
+  },
+  {
+    "id": "magneto-tls",
+    "name": "Magneto TLS",
+    "category": "comic",
+    "price": "$160",
+    "details": "Made to order",
+    "image": null
+  },
+  {
+    "id": "iron-man-team-edition",
+    "name": "Iron Man · Team Edition",
+    "category": "team",
+    "price": "$180",
+    "details": "NFL · NCAA · MLB colors and logos",
+    "image": null
+  },
+  {
+    "id": "daft-punk-guy",
+    "name": "Guy-Manuel · Gold",
+    "category": "music",
+    "price": "$150",
+    "details": "Daft Punk · mesh visor",
+    "image": null
+  },
+  {
+    "id": "daft-punk-thomas",
+    "name": "Thomas · Silver",
+    "category": "music",
+    "price": "$130 / $160",
+    "details": "Daft Punk · mesh / tinted visor",
+    "image": null
+  }
+]
