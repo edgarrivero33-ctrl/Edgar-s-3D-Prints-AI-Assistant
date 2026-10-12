@@ -21,7 +21,7 @@ To add product photos, upload `.webp`, `.jpg`, `.jpeg`, or `.png` files to the `
 - `public/products/` — product images.
 - `worker/index.js` — Worker routes and assistant logic.
 - `scripts/build.mjs` — assembles the source files into the single Worker artifact Cloudflare Sites expects.
-- `.openai/hosting.json` — original private Site project configuration.
+- `.openai/hosting.json` — Cloudflare Site project and deployment configuration.
 
 ## Build and check
 
