@@ -1,4 +1,4 @@
-# Edgar's 3D Prints AI Assistant
+# Edgar's 3D Prints
 
 A Cloudflare Worker prototype for a 3D helmet sales assistant, tailored to the custom cosplay builds listed on Facebook Marketplace.
 
@@ -19,6 +19,7 @@ To add product photos, upload `.webp`, `.jpg`, `.jpeg`, or `.png` files to the `
 - `src/app.js` — browser interactions, chat UI, and local quote state.
 - `src/styles.css` — storefront styles.
 - `public/products/` — product images.
+- `public/products/edgars-3d-prints-logo.png` — storefront logo embedded in the published app.
 - `worker/index.js` — Worker routes and assistant logic.
 - `scripts/build.mjs` — assembles the source files into the single Worker artifact Cloudflare Sites expects.
 - `.openai/hosting.json` — Cloudflare Site project and deployment configuration.
