@@ -2,33 +2,32 @@
 
 A Cloudflare Worker prototype for a 3D helmet sales assistant, tailored to the custom cosplay builds listed on Facebook Marketplace.
 
-## Features
+## Product catalog
 
-- Helmet catalog with comic, team-color, and music filters.
-- Chat for product, head-measurement, and customization questions.
-- Quote draft saved in the browser and copied to message the seller.
-- Direct link to the Marketplace profile: https://www.facebook.com/marketplace/profile/100002822624353/
-- Worker chat endpoint uses Llama 3.3 on Workers AI when the Worker has an `AI` binding or Cloudflare AI credentials configured. Without them, it returns catalog-aware preview responses.
+Product details live in [`src/catalog.json`](src/catalog.json). Add or edit a product there: give it a unique `id`, a display `name`, a filter `category` (`comic`, `team`, `music`, or `other`), a `price`, and short `details`. Set `image` to `null` until you add a photo.
 
-## Cloudflare setup
+To add product photos, put `.webp`, `.jpg`, `.jpeg`, or `.png` files under `public/products/`, keep each under 400 KB, and set the matching catalog entry's `image` to a path such as `products/spider-man-bnd.webp`. The build embeds referenced images in the Worker so the published Site stays self-contained.
 
-The original app is hosted as a private Cloudflare Site. This GitHub repository stores a copy of the source; pushing here does not deploy changes to that Site.
+## Project layout
 
-To enable live model responses in another Cloudflare Worker deployment, provide either:
+- `src/catalog.json` — product data used by both the UI and AI prompt.
+- `src/index.html` — storefront markup.
+- `src/app.js` — browser interactions, chat UI, and local quote state.
+- `src/styles.css` — storefront styles.
+- `public/products/` — product images.
+- `worker/index.js` — Worker routes and assistant logic.
+- `scripts/build.mjs` — assembles the source files into the single Worker artifact Cloudflare Sites expects.
+- `.openai/hosting.json` — original private Site project configuration.
 
-- A Workers AI binding named `AI`, or
-- Worker secrets `CLOUDFLARE_ACCOUNT_ID` and `CLOUDFLARE_AI_TOKEN`.
+## Build and check
 
-The code uses model `@cf/meta/llama-3.3-70b-instruct-fp8-fast`. Never commit API tokens or other secrets. Conversation history and quote details are stored in the visitor's browser local storage.
+```bash
+npm run build
+node --check dist/server/index.js
+```
 
-## Source layout
+The assistant uses Llama 3.3 on Workers AI when the Worker has an `AI` binding or Cloudflare AI credentials configured. Without them, it returns catalog-aware preview responses. To use the model through the Cloudflare API, configure `CLOUDFLARE_ACCOUNT_ID` and `CLOUDFLARE_AI_TOKEN` as Worker secrets. Never commit secrets.
 
-- `worker/index.js` — app UI and Worker API.
-- `.openai/hosting.json` — Sites project configuration for the original private deployment.
+Conversation history and quote details are stored in the visitor's browser local storage. The original app is hosted as a private Cloudflare Site; changes in this GitHub repository do not automatically deploy there.
 
-## Routes
-
-- `GET /` — storefront and chat.
-- `GET /api/health` — reports whether the AI integration is configured.
-- `GET /api/catalog` — product catalog.
-- `POST /api/chat` — assistant reply.
+Marketplace profile: https://www.facebook.com/marketplace/profile/100002822624353/
