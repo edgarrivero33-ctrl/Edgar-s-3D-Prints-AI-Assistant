@@ -23,10 +23,12 @@ for (const product of catalog) {
 const safeJson = (value) => JSON.stringify(value).replace(/</g, String.fromCharCode(92) + 'u003c');
 let page = await read('src/index.html');
 page = page.replace('/*__STYLES__*/', await read('src/styles.css'));
+const logoBytes = await readFile(path.join(root, 'public/products/edgars-3d-prints-logo.png'));
+page = page.replace('__LOGO_DATA__', `data:image/png;base64,${logoBytes.toString('base64')}`);
 page = page.replace('__CATALOG_JSON__', safeJson(catalog));
 page = page.replace('__IMAGE_MAP_JSON__', safeJson(imageMap));
 page = page.replace('/*__APP_JS__*/', await read('src/app.js'));
-if (/__STYLES__|__CATALOG_JSON__|__IMAGE_MAP_JSON__|__APP_JS__/.test(page)) throw new Error('Unexpanded template marker in page.');
+if (/__STYLES__|__LOGO_DATA__|__CATALOG_JSON__|__IMAGE_MAP_JSON__|__APP_JS__/.test(page)) throw new Error('Unexpanded template marker in page.');
 let worker = await read('worker/index.js');
 worker = worker.replace('__CATALOG_JSON__', safeJson(catalog));
 worker = worker.replace('__PAGE_JSON__', safeJson(page));
