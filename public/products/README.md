@@ -1,0 +1,1 @@
+Add product photos in this folder as .webp, .jpg, .jpeg, or .png files under 400 KB each. Then set the matching product's `image` value in `src/catalog.json`, for example `"products/spider-man-bnd.webp"`. Leave `image` as `null` to use the built-in helmet illustration.
