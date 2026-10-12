@@ -1,0 +1,39 @@
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const read = (relative) => readFile(path.join(root, relative), 'utf8');
+const catalog = JSON.parse(await read('src/catalog.json'));
+const imageMap = {};
+const imageTypes = { '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.png': 'image/png', '.webp': 'image/webp' };
+for (const product of catalog) {
+  if (!product.image) continue;
+  const imagePrefix = 'products/';
+  if (!product.image.startsWith(imagePrefix)) throw new Error(`Product image paths must start with ${imagePrefix}`);
+  const cleanPath = product.image.slice(imagePrefix.length);
+  if (cleanPath.includes('..') || path.basename(cleanPath) !== cleanPath) throw new Error(`Invalid product image path: ${product.image}`);
+  const absolute = path.join(root, 'public/products', cleanPath);
+  const ext = path.extname(cleanPath).toLowerCase();
+  if (!imageTypes[ext]) throw new Error(`Unsupported image type for ${product.name}: ${ext}`);
+  const bytes = await readFile(absolute);
+  if (bytes.length > 400_000) throw new Error(`Image ${cleanPath} is ${bytes.length} bytes; keep product images under 400 KB.`);
+  imageMap[product.image] = `data:${imageTypes[ext]};base64,${bytes.toString('base64')}`;
+}
+const safeJson = (value) => JSON.stringify(value).replace(/</g, String.fromCharCode(92) + 'u003c');
+let page = await read('src/index.html');
+page = page.replace('/*__STYLES__*/', await read('src/styles.css'));
+page = page.replace('__CATALOG_JSON__', safeJson(catalog));
+page = page.replace('__IMAGE_MAP_JSON__', safeJson(imageMap));
+page = page.replace('/*__APP_JS__*/', await read('src/app.js'));
+if (/__STYLES__|__CATALOG_JSON__|__IMAGE_MAP_JSON__|__APP_JS__/.test(page)) throw new Error('Unexpanded template marker in page.');
+let worker = await read('worker/index.js');
+worker = worker.replace('__CATALOG_JSON__', safeJson(catalog));
+worker = worker.replace('__PAGE_JSON__', safeJson(page));
+if (/__CATALOG_JSON__|__PAGE_JSON__/.test(worker)) throw new Error('Unexpanded template marker in Worker.');
+const output = path.join(root, 'dist');
+await mkdir(path.join(output, 'server'), { recursive: true });
+await mkdir(path.join(output, '.openai'), { recursive: true });
+await writeFile(path.join(output, 'server/index.js'), worker);
+await writeFile(path.join(output, '.openai/hosting.json'), await read('.openai/hosting.json'));
+console.log(`Built Worker with ${catalog.length} products and ${Object.keys(imageMap).length} product images.`);
