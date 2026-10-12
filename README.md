@@ -2,11 +2,15 @@
 
 A Cloudflare Worker prototype for a 3D helmet sales assistant, tailored to the custom cosplay builds listed on Facebook Marketplace.
 
+## Live app
+
+The customer-facing app is public at [mask-maker-studio.plucky-chub-6701.chatgpt.site](https://mask-maker-studio.plucky-chub-6701.chatgpt.site). Anyone with the link can open it. Updates to this GitHub repository do not deploy automatically; publish source changes to the Cloudflare Site to put them online.
+
 ## Product catalog
 
 Product details live in [`src/catalog.json`](src/catalog.json). Add or edit a product there: give it a unique `id`, a display `name`, a filter `category` (`comic`, `team`, `music`, or `other`), a `price`, and short `details`. Set `image` to `null` until you add a photo.
 
-To add product photos, put `.webp`, `.jpg`, `.jpeg`, or `.png` files under `public/products/`, keep each under 400 KB, and set the matching catalog entry's `image` to a path such as `products/spider-man-bnd.webp`. The build embeds referenced images in the Worker so the published Site stays self-contained.
+To add product photos, upload `.webp`, `.jpg`, `.jpeg`, or `.png` files to the `public/products/` directory in the repository. Keep each image under 400 KB. Then set that product's `image` value in `src/catalog.json` to a path such as `products/spider-man-bnd.webp`. The build embeds referenced images in the Worker so the published Site stays self-contained.
 
 ## Project layout
 
@@ -28,6 +32,6 @@ node --check dist/server/index.js
 
 The assistant uses Llama 3.3 on Workers AI when the Worker has an `AI` binding or Cloudflare AI credentials configured. Without them, it returns catalog-aware preview responses. To use the model through the Cloudflare API, configure `CLOUDFLARE_ACCOUNT_ID` and `CLOUDFLARE_AI_TOKEN` as Worker secrets. Never commit secrets.
 
-Conversation history and quote details are stored in the visitor's browser local storage. The original app is hosted as a private Cloudflare Site; changes in this GitHub repository do not automatically deploy there.
+Conversation history and quote details are stored in the visitor's browser local storage.
 
 Marketplace profile: https://www.facebook.com/marketplace/profile/100002822624353/
