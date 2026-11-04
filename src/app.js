@@ -45,7 +45,7 @@ function renderCatalog(filter = 'all') {
       + '</div><div class="cardbody">'
       + '<div class="cardtitle">' + escapeHtml(product.name) + '</div>'
       + '<div class="cardmeta">' + escapeHtml(product.details || 'Made to order') + '</div>'
-      + '<div class="cardbottom"><span class="price">' + escapeHtml(product.price || 'Ask for quote') + '</span>'
+      + '<div class="cardbottom"><span class="price">Starting at: ' + escapeHtml(product.price || 'Ask for quote') + '</span>'
       + '<button class="askbtn">ASK ABOUT ↗</button></div></div>';
 
     card.querySelector('.askbtn').addEventListener('click', () => {
@@ -198,6 +198,24 @@ $('#copy-quote').addEventListener('click', async () => {
   } catch {
     showNotice('Clipboard access is unavailable');
   }
+});
+
+document.querySelectorAll('.navtab').forEach((button) => {
+  button.addEventListener('click', () => {
+    document.querySelectorAll('.navtab').forEach((tab) => tab.classList.toggle('active', tab === button));
+    document.querySelectorAll('[id$="-view"]').forEach((view) => { view.hidden = view.id !== button.dataset.view; });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+});
+
+$('#copy-payment').addEventListener('click', async () => {
+  const details = 'Edgar\'s 3D Prints order request\nHelmet: ' + ($('#payment-helmet').value || '____')
+    + '\nSize: ' + ($('#payment-size').value || '____')
+    + '\nCustomization: ' + ($('#payment-custom').value || '____')
+    + '\nShipping address: ' + ($('#payment-address').value || '____')
+    + '\nPlease confirm final pricing before payment.\nEmail: edgarrivero33@gmail.com';
+  try { await navigator.clipboard.writeText(details); showNotice('Order details copied'); }
+  catch { showNotice('Clipboard access is unavailable'); }
 });
 
 renderCatalog();
