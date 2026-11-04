@@ -13,7 +13,7 @@
     "category": "comic",
     "price": "$140",
     "details": "Made to order",
-    "image": null
+    "image": "products/deadpool.jpg"
   },
   {
     "id": "wolverine",
@@ -21,7 +21,7 @@
     "category": "comic",
     "price": "Ask for quote",
     "details": "Made to order",
-    "image": null
+    "image": "products/wolverine.jpg"
   },
   {
     "id": "batman",
@@ -29,7 +29,7 @@
     "category": "comic",
     "price": "$130",
     "details": "Made to order",
-    "image": null
+    "image": "products/batman.jpg"
   },
   {
     "id": "daredevil-2003",
@@ -37,7 +37,7 @@
     "category": "comic",
     "price": "$120",
     "details": "Clubs $40 · bundle $150",
-    "image": null
+    "image": "products/daredevil-2003.jpg"
   },
   {
     "id": "peacekeeper-s1",
@@ -45,7 +45,7 @@
     "category": "other",
     "price": "$100",
     "details": "Made to order",
-    "image": null
+    "image": "products/peacekeeper-s1.jpg"
   },
   {
     "id": "red-x",
@@ -53,7 +53,7 @@
     "category": "comic",
     "price": "$140",
     "details": "Made to order",
-    "image": null
+    "image": "products/red-x.jpg"
   },
   {
     "id": "predator",
@@ -61,7 +61,7 @@
     "category": "other",
     "price": "$260",
     "details": "Dreadlocks included · about 10-day production",
-    "image": null
+    "image": "products/predator.jpg"
   },
   {
     "id": "doctor-doom",
@@ -85,7 +85,7 @@
     "category": "team",
     "price": "$180",
     "details": "NFL · NCAA · MLB colors and logos",
-    "image": null
+    "image": "products/iron-man-team.jpg"
   },
   {
     "id": "daft-punk-guy",
@@ -93,7 +93,7 @@
     "category": "music",
     "price": "$150",
     "details": "Daft Punk · mesh visor",
-    "image": null
+    "image": "products/daft-punk-guy.jpg"
   },
   {
     "id": "daft-punk-thomas",
@@ -101,6 +101,6 @@
     "category": "music",
     "price": "$130 / $160",
     "details": "Daft Punk · mesh / tinted visor",
-    "image": null
+    "image": "products/daft-punk-thomas.jpg"
   }
 ]
