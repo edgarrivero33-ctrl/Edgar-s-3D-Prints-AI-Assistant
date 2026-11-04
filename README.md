@@ -4,7 +4,7 @@ A Cloudflare Worker prototype for a 3D helmet sales assistant, tailored to the c
 
 ## Live app
 
-The customer-facing app is public at [mask-maker-studio.plucky-chub-6701.chatgpt.site](https://mask-maker-studio.plucky-chub-6701.chatgpt.site). Anyone with the link can open it. Updates to this GitHub repository do not deploy automatically; publish source changes to the Cloudflare Site to put them online.
+The customer-facing app is public at [edgars3dprints.com](https://edgars3dprints.com). Anyone with the link can open it. The original hosted URL, [edgar3d.plucky-chub-6701.chatgpt.site](https://edgar3d.plucky-chub-6701.chatgpt.site), remains available as a fallback. Updates to this GitHub repository do not deploy automatically; publish source changes to the Cloudflare Site to put them online.
 
 ## Product catalog
 
@@ -36,3 +36,5 @@ The assistant uses Llama 3.3 on Workers AI when the Worker has an `AI` binding o
 Conversation history and quote details are stored in the visitor's browser local storage.
 
 Marketplace profile: https://www.facebook.com/marketplace/profile/100002822624353/
+
+Customer inquiries and pricing: edgarrivero33@gmail.com
