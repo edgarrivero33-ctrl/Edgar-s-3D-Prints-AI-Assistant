@@ -39,7 +39,7 @@ function renderCatalog(filter = 'all') {
       ? '<img class="catalog-photo" src="' + escapeHtml(imageUrl) + '" alt="' + escapeHtml(product.name) + ' helmet">'
       : '<div class="minihelmet" aria-hidden="true"></div>';
 
-    card.innerHTML = '<div class="cardtop">'
+    card.innerHTML = '<div class="cardtop' + (imageUrl ? ' has-photo' : '') + '">'
       + '<span class="cardnum">MM—' + String(index + 1).padStart(2, '0') + '</span>'
       + '<span class="ready">MADE TO ORDER</span>' + artwork
       + '</div><div class="cardbody">'
