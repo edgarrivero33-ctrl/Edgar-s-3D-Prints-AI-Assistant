@@ -38,3 +38,7 @@ Conversation history and quote details are stored in the visitor's browser local
 Marketplace profile: https://www.facebook.com/marketplace/profile/100002822624353/
 
 Customer inquiries and pricing: edgarrivero33@gmail.com
+
+## Security
+
+No API keys, access tokens, passwords, or payment credentials are stored in this repository. Cloudflare AI credentials, when used, must be configured as Worker secrets (`CLOUDFLARE_ACCOUNT_ID` and `CLOUDFLARE_AI_TOKEN`). Local `.env` files, `.dev.vars`, and build output are excluded by `.gitignore`.
