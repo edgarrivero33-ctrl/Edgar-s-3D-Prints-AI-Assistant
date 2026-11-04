@@ -77,7 +77,7 @@
     "category": "comic",
     "price": "$160",
     "details": "Made to order",
-    "image": "products/magneto-tls.jpg"
+    "image": "products/iron-man-team.jpg"
   },
   {
     "id": "iron-man-team-edition",
@@ -85,7 +85,7 @@
     "category": "team",
     "price": "$180",
     "details": "NFL · NCAA · MLB colors and logos",
-    "image": "products/iron-man-team.jpg"
+    "image": "products/magneto-tls.jpg"
   },
   {
     "id": "daft-punk-guy",
