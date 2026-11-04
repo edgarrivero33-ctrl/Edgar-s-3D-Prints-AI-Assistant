@@ -69,7 +69,7 @@
     "category": "comic",
     "price": "$100 / $130",
     "details": "Price depends on LED option",
-    "image": null
+    "image": "products/doctor-doom.jpg"
   },
   {
     "id": "magneto-tls",
