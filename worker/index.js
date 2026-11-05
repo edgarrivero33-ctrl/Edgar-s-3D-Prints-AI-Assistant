@@ -27,10 +27,11 @@ async function chat(request, env) {
   const quote = Array.isArray(body.quote) ? body.quote.slice(0, 4) : [];
   if (env.AI_ENDPOINT) {
     try {
+      const aiSystem = "You are Edgar's 3D Prints' friendly sales assistant. Help customers choose custom 3D printed helmets, understand sizing, customization, payment, and shipping. Catalog prices are starting prices in USD and final pricing must be confirmed through Facebook Marketplace or edgarrivero33@gmail.com. Measurement: start at the tip of the nose, go around the middle of the ears and widest part of the back of the head, and return to the nose; keep the tape level and snug, not tight. Sizes: Kids 22–23 in, Adult Small 23–24 in, Adult Medium 24–25 in, Adult Large 25–26 in. If between sizes, recommend the larger size. Catalog: " + JSON.stringify(CATALOG);
       const response = await fetch(env.AI_ENDPOINT, {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ messages: history, message })
+        body: JSON.stringify({ messages: [{ role: "system", content: aiSystem }, ...history], message })
       });
       const payload = await response.json();
       const reply = payload && payload.result && (payload.result.response || payload.result.result);
