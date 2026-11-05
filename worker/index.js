@@ -25,6 +25,18 @@ async function chat(request, env) {
   if (!message) return json({ error: "Message is required." }, 400);
   const history = Array.isArray(body.history) ? body.history.slice(-10).filter(m => m && ["user", "assistant"].includes(m.role) && typeof m.content === "string").map(m => ({ role: m.role, content: m.content.slice(0, 1800) })) : [];
   const quote = Array.isArray(body.quote) ? body.quote.slice(0, 4) : [];
+  if (env.AI_ENDPOINT) {
+    try {
+      const response = await fetch(env.AI_ENDPOINT, {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ messages: history, message })
+      });
+      const payload = await response.json();
+      const reply = payload && payload.result && (payload.result.response || payload.result.result);
+      if (response.ok && typeof reply === "string" && reply.trim()) return json({ reply: reply.trim(), mode: "workers-ai" });
+    } catch (e) { /* Fall back to the local catalog helper if the AI Worker is unavailable. */ }
+  }
   if ((env.AI && typeof env.AI.run === "function") || (env.CLOUDFLARE_ACCOUNT_ID && env.CLOUDFLARE_AI_TOKEN)) {
     try {
       const system = "You are Edgar's 3D Prints' friendly sales assistant for a small maker selling custom 3D printed cosplay helmets and props through Facebook Marketplace. Help buyers choose, understand fit and options, and prepare a concise quote request. Be clear that all items are made to order. The Payment & Order tab collects helmet name, helmet size/head circumference, customization options, and complete shipping address, then links to PayPal at https://www.paypal.com/paypalme/edgarrivero33. Before anyone pays, require final pricing and build confirmation through the Facebook Marketplace profile or by emailing edgarrivero33@gmail.com. Never claim checkout, payment processing, shipping calculation, or direct Marketplace messaging is integrated. Do not invent availability, materials, shipping terms, exact fit guarantees, or lead times. Catalog prices must be described as starting prices in USD, not guaranteed final quotes. Catalog: " + JSON.stringify(CATALOG) + ". Measurement reference: use a soft measuring tape. Start at the tip of the nose, bring it around and over the middle of the ears, continue around the back of the head at its widest part, then bring it back to the tip of the nose. Keep the tape level and snug, not tight, and request the total in inches or centimeters. Size chart: Kids 22–23 inches (56–58 cm), Adult Small 23–24 inches (58–61 cm), Adult Medium 24–25 inches (61–64 cm), Adult Large 25–26 inches (64–66 cm). If between sizes, recommend the larger size for fit and comfort. Predator currently notes roughly 10 days production. Ask a short follow-up when information is missing. Quote draft: " + JSON.stringify(quote);
@@ -54,7 +66,7 @@ export default {
     const url = new URL(request.url);
     if (request.method === "GET" && url.pathname === "/") return new Response(page, { headers: { "content-type": "text/html; charset=utf-8", "cache-control": "no-cache" } });
     if (request.method === "GET" && url.pathname === "/api/health") {
-      const ai = !!((env.AI && typeof env.AI.run === "function") || (env.CLOUDFLARE_ACCOUNT_ID && env.CLOUDFLARE_AI_TOKEN));
+      const ai = !!(env.AI_ENDPOINT || (env.AI && typeof env.AI.run === "function") || (env.CLOUDFLARE_ACCOUNT_ID && env.CLOUDFLARE_AI_TOKEN));
       return json({ ai, mode: ai ? "workers-ai" : "preview", model: MODEL });
     }
     if (request.method === "POST" && url.pathname === "/api/chat") return chat(request, env);
